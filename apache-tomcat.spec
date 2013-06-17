@@ -70,8 +70,10 @@ md5sum -c %{name}-%{version}-src.tar.gz.md5 || (echo "Source archive failed m5su
 %setup -q -n %{name}-%{version}-src
 
 # This tells ant to install software in a specific directory.
+# dbcp fails to build with java7 - not needed, jdbc is much better anyway
 cat << EOF >> build.properties
 base.path=%{buildroot}/opt/%{name}
+no.build.dbcp=true
 EOF
 
 %build
